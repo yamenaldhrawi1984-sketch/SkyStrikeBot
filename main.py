@@ -34,15 +34,19 @@ def current_guild_id():
 def guild_db_file(guild_id):
     return f"sky_strike_{int(guild_id)}.db"
 
-if not os.path.exists("config.json"):
-    print("❌ ملف config.json غير موجود!")
+TOKEN = os.getenv("BOT_TOKEN")
+
+ALLOWED_CHANNELS = [
+    int(x.strip())
+    for x in os.getenv("ALLOWED_CHANNELS", "").split(",")
+    if x.strip()
+]
+
+if not TOKEN:
+    print("❌ BOT_TOKEN غير موجود في Variables!")
     raise SystemExit
 
-with open("config.json", "r", encoding="utf-8") as f:
-    config_data = json.load(f)
-
-TOKEN = config_data.get("BOT_TOKEN")
-ALLOWED_CHANNELS = config_data.get("ALLOWED_CHANNELS", [])
+print("✅ تم تحميل إعدادات البوت بنجاح.")
 
 intents = discord.Intents.default()
 intents.message_content = True
