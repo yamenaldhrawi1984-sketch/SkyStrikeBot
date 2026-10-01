@@ -32,7 +32,7 @@ def current_guild_id():
     return int(guild_id)
 
 def guild_db_file(guild_id):
-    return f"sky_strike_{int(guild_id)}.db"
+    return f"/app/data/sky_strike_{int(guild_id)}.db"
 
 # =========================================================
 # إعدادات Railway / Environment Variables
