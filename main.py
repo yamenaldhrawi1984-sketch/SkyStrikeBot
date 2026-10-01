@@ -34,6 +34,12 @@ def current_guild_id():
 def guild_db_file(guild_id):
     return f"sky_strike_{int(guild_id)}.db"
 
+# =========================================================
+# إعدادات Railway / Environment Variables
+# =========================================================
+# لا نحتاج config.json على الاستضافة.
+# Railway يمرر القيم من Service Variables مباشرة.
+
 TOKEN = os.getenv("BOT_TOKEN")
 
 ALLOWED_CHANNELS = [
@@ -42,11 +48,15 @@ ALLOWED_CHANNELS = [
     if x.strip()
 ]
 
+# فحص آمن: لا يتم طباعة التوكن نفسه.
+print("🔍 فحص إعدادات Railway:")
+print("BOT_TOKEN موجود:", bool(TOKEN))
+print("BOT_TOKEN الطول:", len(TOKEN) if TOKEN else 0)
+print("ALLOWED_CHANNELS:", ALLOWED_CHANNELS)
+
 if not TOKEN:
     print("❌ BOT_TOKEN غير موجود في Variables!")
     raise SystemExit
-
-print("✅ تم تحميل إعدادات البوت بنجاح.")
 
 intents = discord.Intents.default()
 intents.message_content = True
